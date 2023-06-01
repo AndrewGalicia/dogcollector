@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="columns">
+    <div class="column">
+        <div class="card">
+            <header class="card-header">
+              <p class="card-header-title">
+                {{ dog.name }}
+              </p>
+              <button class="card-header-icon" aria-label="more options">
+                <span class="icon">
+                  <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+              </button>
+            </header>
+            <div class="card-content">
+                <div class="content">
+                    <p>Breed: {{ dog.breed }}</p>
+                    <p>Description: {{ dog.description|linebreaks }}</p>
+                    {% if dog.age > 0 %}
+                    <p>Age: {{ dog.age }}</p>
+                  {% else %}
+                    <p>Age: Puppy</p>
+                  {% endif %}
+              </div>
+            </div>
+            <footer class="card-footer">
+              <a href="{% url 'dogs_update' dog.id %}" class="card-footer-item">Edit</a>
+              <a href="{% url 'dogs_delete' dog.id %}" class="card-footer-item">Delete</a>
+            </footer>
+        </div>
+    </div>
+
+{% endblock %}
