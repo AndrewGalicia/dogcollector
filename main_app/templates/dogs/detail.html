@@ -31,24 +31,26 @@
             </footer>
         </div>
     </div>
-    <div class="column">
+    <div class="column is-two-thirds">
         <form action="{% url 'add_feeding' dog.id %}" method="POST">
           {% csrf_token %}
           <!-- Render the inputs -->
           {{ feeding_form.as_p }}
           <br>
+          
           <input type="submit" class="button is-primary" value="Add Feeding">
         </form>
+        <br>
       
-        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidthr">
+        <table class="table is-fullwidth is-bordered  is-striped is-narrow is-hoverable is-fullwidthr">
           <thead>
             <tr class="is-bold "><th>Date </th><th>Meal</th></tr>
           </thead>
           <tbody>
             {% for feeding in dog.feeding_set.all %}
               <tr>
-                <td>{{feeding.date}}</td>
-                <td>{{feeding.get_meal_display}}</td>
+                <td class="has-text-left">{{feeding.date}}</td>
+                <td class="has-text-left">{{feeding.get_meal_display}}</td>
               </tr>
             {% endfor %}
           </tbody>
@@ -58,17 +60,23 @@
 
 <script>
   const dateEl = document.getElementById('id_date');
-  // M is Materialize's global variable
   M.Datepicker.init(dateEl, {
     format: 'yyyy-mm-dd',
     defaultDate: new Date(),
     setDefaultDate: true,
-    autoClose: true
-  });
+    autoClose: true,
+    container: document.body,
+    showClearBtn: true,
+    showDaysInNextAndPreviousMonths: true,
+    onOpen: function() {
+      const calendarEl = document.querySelector('.datepicker-modal');
+      calendarEl.classList.add('custom-calendar-container');
+    }
+});
 
    // add additional JS to initialize select below
-   const selectEl = document.getElementById('id_meal');
-  M.FormSelect.init(selectEl);
+  //  const selectEl = document.getElementById('id_meal');
+  // M.FormSelect.init(selectEl);
 
   
 </script>

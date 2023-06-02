@@ -1,1 +1,11 @@
 @import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
+
+:root {
+  --primary-color: beige; /* Define your custom primary color */
+}
+
+.custom-calendar-container {
+  background-color: var(--primary-color); /* Use the custom primary color variable */
+}
+
+
