@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="py-6 my-6 mx-6 px-6 is-size-1-desktop ">Sign Up</h1>
+<p class="red-text">{{ error_message }}</p>
+<!-- Add the login form -->
+<form method="POST" action="{% url 'signup' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" name="next" value="{{ next }}">
+    <button type="submit" class="button">Sign Up</button>
+  </form>
+
+{% endblock %}

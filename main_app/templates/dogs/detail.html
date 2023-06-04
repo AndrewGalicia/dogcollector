@@ -42,7 +42,7 @@
         </form>
         <br>
       
-        <table class="table is-fullwidth is-bordered  is-striped is-narrow is-hoverable is-fullwidthr">
+        <table class="table is-fullwidth is-bordered  is-striped is-narrow is-hoverable is-fullwidth">
           <thead>
             <tr class="is-bold "><th>Date </th><th>Meal</th></tr>
           </thead>
@@ -57,6 +57,69 @@
         </table>
     </div>
 </div>
+
+
+
+<div class="columns"> 
+  <div class="column">
+    <h1 class="is-size-3 title">{{dog.name}}'s Swag </h1>
+      {% if dog.swags.count%}
+        {% for swag in dog.swags.all %}
+      <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              {{ swag.name }}
+            </p>
+          </header>
+          <div class="card-content">
+              <div class="content">
+                  <p>Name of Swag: {{ swag.name }}</p>
+                  <p>Color {{ swag.color }}</p>
+              </div>
+          </div>
+          <div class="card-footer">
+            <form action="{% url 'unassoc_swag' dog.id swag.id %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="button">Remove</button> 
+          </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h5>No Swag </h5>
+    {% endif %}
+    </div>
+
+    <div class="column">
+      <h1 class="is-size-3 title"> Available Swag </h1>
+      {% if swags.count %}
+            {% for a_swag in swags.all %}
+        <div class="card">
+            <header class="card-header">
+              <p class="card-header-title">
+                {{ a_swag.name }}
+              </p>
+            </header>
+            <div class="card-content">
+                <div class="content">
+                    <p>Name of Swag: {{ a_swag.name }}</p>
+                    <p>Color {{ a_swag.color }}</p>
+                </div>
+            </div>
+            <div class="card-footer">
+              <form class="has-text-centered" action="{% url 'assoc_swag' dog.id a_swag.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="button">Add</button>
+              </form>
+            </div>
+        </div>
+      {% endfor %}
+            {% else %}
+            <h5>No Swag </h5>
+        {% endif %}
+  </div>
+</div>
+  
+  
 
 <script>
   const dateEl = document.getElementById('id_date');
